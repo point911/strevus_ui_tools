@@ -1,0 +1,5 @@
+{
+    "phantomjs": {
+        "path": "/usr/local/bin/phantomjs"
+    }
+}
