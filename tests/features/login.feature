@@ -1,6 +1,6 @@
 Feature: Login
     In order to play with Lettuce
-    As beginners
+    As beginners on local environment
     We'll implement login functionality
 
     Scenario: Log in to localhost
