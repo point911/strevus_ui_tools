@@ -1,4 +1,3 @@
-__author__ = 'point'
 # -*- coding: utf-8 -*-
 
 import time
