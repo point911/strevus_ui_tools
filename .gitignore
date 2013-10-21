@@ -1,0 +1,8 @@
+# Ignore idea files:
+.idea/
+
+# Ignore pyc compiled files
+*.pyc
+
+# Ignore all log files
+*.log
