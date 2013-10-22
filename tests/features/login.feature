@@ -3,8 +3,6 @@ Feature: Login
     As beginners on local environment
     We'll implement login functionality
 
-    Scenario: Log in to localhost
-        Given I have login url "http://localhost:1025"
-        When I login through phantomjs
-        Then I see dashboard url "dashboard"
-
+    Scenario: Check if User able to sing-in as Customer Outreach Team Member
+        Given I am signed in as single user
+        Then I should see landing page

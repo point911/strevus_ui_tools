@@ -1,74 +1,60 @@
 # -*- coding: utf-8 -*-
-
-import time
-import logging
-import imp
+# import logging
 
 from lettuce import *
+import time
 
-driver_module = imp.load_source('driver', '/Users/strevus/PycharmProjects/StrevusLoginTest/tests/lib/driver.py')
-environment_module = imp.load_source('env', '/Users/strevus/PycharmProjects/StrevusLoginTest/tests/lib/environment.py')
+# Load terrain
+steps_logger = world.log
+env = world.env
+
+# print("INIT DRIVER")
+# world.driver = world.init_driver("phantomjs")
+
+# Import page objects
+from pages.StrevusLoginPage import LoginPage
+
+print("3 WORLD IN STEPS.PY {0}".format(world))
+
+@before.each_feature
+def setup_all_features(feature):
+    print("4 WORLD IN BEFORE ALL {0}".format(world))
+    print("5 INITIALIZING WORLD")
+    world.driver = world.init_driver("phantomjs")
+    print("6 BEFORE ALL END")
 
 
-steps_log_config = logging.basicConfig(filename='steps.log',
-                                       filemode='w',
-                                       level=logging.INFO)
 
-steps_logger = logging.getLogger(steps_log_config)
+@after.each_feature
+def teardown_features(feature):
+    print("11 AFTER ALL")
+    world.driver.close()
 
-#Load environment
-env = environment_module.GetEnvironment('local')
+@step(u'I am signed in as single user')
+def given_i_have_login_url(step):
+    page = LoginPage(env, world)
+    print("9 IN FIRST STEP")
+    print("10 WORLD IN FIRST STEP: {0}".format(world))
+    steps_logger.info(world)
 
-steps_logger.info(env)
 
-@step(u'Given I have login url "([^"]*)"')
-def given_i_have_login_url(step, string):
     steps_logger.info("Running step: I have login url...")
-    driver = driver_module.Driver("phantomjs")
-    driver.get(env["url"]+env['port'])
 
-    if "Strevus" in driver.title:
-        steps_logger.info("Step: I have login url PASSED")
-    else:
-        steps_logger.info("Step: I have login url FAILED")
-        raise AssertionError
-    driver.close()
-    steps_logger.info("="*20)
+    page.fill_in_credentials("fred@fd.com", "pswd")
+    page.sign_in()
 
-
-@step(u'When I login through phantomjs')
-def when_i_login_through_phantomjs(step):
-    steps_logger.info("Running step: When I login through phantomjs...")
-    driver = driver_module.Driver("phantomjs")
-    driver.get(env["url"]+env['port'])
-    username = driver.find_element_by_name("username")
-    username.send_keys("fred@fd.com")
-    password = driver.find_element_by_id("password")
-    password.send_keys("pswd")
-    button = driver.find_element_by_id("submitLogin")
-    button.click()
-    driver.implicitly_wait(1)
-    steps_logger.info("Step: When I login through phantomjs PASSED")
-    steps_logger.info("="*20)
-
-
-@step(u'Then I see dashboard url "([^"]*)"')
-def then_i_see_page_title(step, string):
-    steps_logger.info("Running step: Then I see dashboard url...")
-
-    driver = driver_module.Driver("phantomjs")
-    driver.get(env["url"]+env['port'])
-    username = driver.find_element_by_name("username")
-    username.send_keys("fred@fd.com")
-    password = driver.find_element_by_id("password")
-    password.send_keys("pswd")
-    button = driver.find_element_by_id("submitLogin")
-    button.click()
     time.sleep(1)
-    if string in driver.current_url:
+    # driver.implicitly_wait(1)
+    # driver.set_page_load_timeout(1)
+    steps_logger.info("="*20)
+
+
+
+@step(u'I should see landing page')
+def then_i_should_see_landing_page(step):
+
+    if "dashboard" in world.driver.current_url:
         steps_logger.info("Step: Then I see dashboard url PASSED")
     else:
         steps_logger.info("Step: Then I see dashboard url FAILED")
         raise AssertionError
-    driver.close()
-    steps_logger.info("="*20)
