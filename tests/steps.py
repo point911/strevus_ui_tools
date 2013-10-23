@@ -19,7 +19,7 @@ def setup_all_features(feature):
     world.log.info("4 WORLD IN BEFORE ALL {0}".format(world))
     world.log.info("5 INITIALIZING STEP")
     world.log.info("PHANTOM")
-    world.driver = world.init_driver("phantomjs")
+    world.driver = world.init_driver("firefox")
     world.log.info(world.driver)
     world.log.info("6 BEFORE ALL END")
 
@@ -34,17 +34,17 @@ def teardown_features(feature):
 
 @step(u'I am signed in as single user')
 def given_i_have_login_url(step):
-    page = LoginPage(world.env)
+    LoginPage()
     world.log.info("9 IN FIRST STEP")
     world.log.info("10 WORLD IN FIRST STEP: {0}".format(world))
     world.log.info(world)
     world.log.info("Running step: I have login url...")
 
-    page.fill_in_credentials("fred@fd.com", "pswd")
-    page.sign_in()
+    world.page.fill_in_credentials("fred@fd.com", "pswd")
+    world.page.sign_in()
 
-    time.sleep(2)
-    # driver.implicitly_wait(1)
+    # time.sleep(2)
+
     # driver.set_page_load_timeout(1)
     world.log.info("="*20)
 
@@ -62,8 +62,17 @@ def then_i_should_see_landing_page(step):
 
 @step(u'I want to remember my login nick@fd.com after sign in')
 def i_want_to_remember_my_login_after_sign_in(step):
-    page = LoginPage(world.env)
-    page.fill_in_credentials("nick@fd.com", "pswd")
-    page.remember_pass()
-    page.sign_in()
+    LoginPage()
+    world.page.fill_in_credentials("nick@fd.com", "pswd")
+    world.page.remember_pass()
+    world.page.sign_in()
 
+@step(u'I sign out from application')
+def i_sign_out_form_application(step):
+    time.sleep(1)
+    world.page.logout()
+
+@step(u'I see login page with pre-populated email nick@fd.com')
+def i_see_login_page_with_pre_populated_email(step):
+    world.page.isLoginPage()
+    world.page.check_remember_pass()

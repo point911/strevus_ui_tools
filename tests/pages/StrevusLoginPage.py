@@ -1,10 +1,13 @@
+import time
 from lettuce import world
+from selenium.common.exceptions import *
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class LoginPage(object):
-    def __init__(self, env):
-        world.log.info("7 INIT OF PAGE OBJECT")
-        world.log.info("8 WORLD IN PAGEOBJECT {0}".format(world))
-        self.env = env
+    def __init__(self):
+        self.env = world.env
         self.driver = world.driver
         self.LoadPage()
         world.page = self
@@ -25,8 +28,21 @@ class LoginPage(object):
     def logout(self):
         self.driver.get(self.env["url"]+self.env['port']+"logout")
 
+    # Public interface
+    def check_remember_pass(self):
+        remember_email_checkbox = self.driver.find_element_by_css_selector("#remember")
+        if not remember_email_checkbox.is_selected():
+            world.log.info("Check box remember pass is not selected")
+            raise AssertionError
 
-# Public interface
+    def isLoginPage(self):
+        try:
+            el_login_page = WebDriverWait(world.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                                                                 "form#signin-form")))
+        except TimeoutException:
+            world.log.info("NO LOGINPAGE!!!!")
+
+
     def fill_in_credentials(self, user, pswd):
         self.set_username(user)
         self.set_password(pswd)
@@ -34,10 +50,17 @@ class LoginPage(object):
     def sign_in(self):
         el_login_button = self.driver.find_element_by_id("submitLogin")
         el_login_button.click()
-        # world.log.info(self.driver.find_element_by_css_selector(".dashboard-home"))
+
+        try:
+            el_dash = WebDriverWait(world.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                                                           ".dashboard-home")))
+        except TimeoutException:
+            world.log.info("NO DASHBOARD!!!!")
+            #raise AssertionError
         # TODO: Call init of the nextpage
+        # DashboardPage()
 
     def remember_pass(self):
         remember_email_checkbox = self.driver.find_element_by_css_selector("#remember")
         remember_email_checkbox.click()
-        # assert remember_email_checkbox.is_selected() == True
+
