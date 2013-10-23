@@ -5,26 +5,22 @@ driver_config_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/conf
 import json
 from selenium import webdriver
 
-'''
-class Singleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
-'''
-
 class LoadWebdriver(object):
-    def __new__(cls, path):
-        return webdriver.PhantomJS(path)
+    def __new__(cls, name, config):
+        if name == "phantomjs":
+            return webdriver.PhantomJS(config[name]["path"])
+        elif name == "firefox":
+            return webdriver.Firefox(firefox_binary=config[name]["path"])
+        else:
+            print("NO SUCH DRIVER")
+            exit(1)
 
 class LoadConfig(object):
     def __new__(cls, name, path=driver_config_path):
         with open(path, 'r') as dcf:
             config = json.load(dcf)
-        return LoadWebdriver(config[name]["path"])
+        return LoadWebdriver(name, config)
 
 class Driver(object):
-    #__metaclass__ = Singleton
     def __new__(cls, name):
         return LoadConfig(name)

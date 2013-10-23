@@ -1,5 +1,8 @@
 {
     "phantomjs": {
         "path": "/usr/local/bin/phantomjs"
+    },
+    "firefox": {
+        "path": "/Applications/Firefox 2.app/Contents/MacOS/firefox-bin"
     }
 }
