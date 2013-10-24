@@ -1,0 +1,18 @@
+{
+    "Internal Contact": {
+        "email": "fred.wilson@ibank.com",
+        "pswd": "pswd"
+    },
+    "External Contact": {
+        "email": "",
+        "pswd": ""
+    },
+    "CustomerOutreachTeamMember": {
+        "email": "fred@fd.com",
+        "pswd": "pswd"
+    },
+    "Tax Person": {
+        "email": "lisa.law@ibank.com",
+        "pswd": "pswd"
+    }
+}

@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import logging
 from lettuce import *
 from lib.driver import Driver
@@ -16,7 +17,7 @@ class InitWorld():
     __metaclass__ = Singleton
 
     def __init__(self):
-        # self.world = world
+        self.users_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/source/users.json"
 
         current_path = os.path.dirname(__file__)
         self.project_path = os.path.abspath(os.path.join(current_path, os.pardir))
@@ -29,7 +30,10 @@ class InitWorld():
 
         world.init_driver = Driver
         world.env = GetEnvironment('staging')
-        # self.get_world()
+
+        world.users = self.GetUsers()
+
+        world.log.info("USERS IN ALTERNATE: {0}".format(world.users))
 
 
     def config_logger(self):
@@ -37,8 +41,10 @@ class InitWorld():
                                        filemode='w',
                                        level=logging.INFO)
 
-    #def get_world(self):
-    #    world = self.world
-
     def tear_down_world(self):
         os.system("killall -9 phantomjs")
+
+    def GetUsers(self):
+        with open(self.users_path, 'r') as usrs:
+            users = json.load(usrs)
+        return users

@@ -30,6 +30,7 @@ class LoginPage(object):
 
     # Public interface
     def check_remember_pass(self):
+        time.sleep(3)
         remember_email_checkbox = self.driver.find_element_by_css_selector("#remember")
         if not remember_email_checkbox.is_selected():
             world.log.info("Check box remember pass is not selected")
@@ -65,6 +66,9 @@ class LoginPage(object):
             world.log.info("NO DASHBOARD!!!!")
             raise AssertionError
         '''
+
+        pass
+
         # DashboardPage()
 
     def remember_pass(self):

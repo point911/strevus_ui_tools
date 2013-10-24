@@ -4,14 +4,14 @@ Feature: Login
     We'll implement login functionality
 
     Scenario Outline: Check if User able to sing-in as <user_type>
-        Given I am signed in as <user>
+        Given I am signed in as "<user_type>"
         Then I should see "<landing_page>"
 
     Examples:
-        | user_type                    | user                    | landing_page                 |
-        | "Internal Conatct"           | "fred.wilson@ibank.com" | "Internal Contact Entities"  |
-        | "CustomerOutreachTeamMember" | "nick@fd.com"           | "Dashboard"                  |
-        | "Tax Person"                 | "lisa.lawk@ibank.com"   | "Dashboard"                  |
+        | user_type                    | landing_page               |
+        | Internal Contact             | Internal Contact Entities  |
+        | CustomerOutreachTeamMember   | Dashboard                  |
+        | Tax Person                   | Dashboard                  |
 
     Scenario: Remember email on the login form
         Given I want to remember my login nick@fd.com after sign in
