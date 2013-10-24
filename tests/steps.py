@@ -41,7 +41,7 @@ def i_am_signed_in_as(step, user_type):
     LoginPage()
     world.log.info("Running step: I have login url...")
     world.page.fill_in_credentials(world.users[user_type]["email"], world.users[user_type]["pswd"])
-    world.page.sign_in()
+    world.page.sign_in(user_type)
 
 
 @step(u'I should see "([^"]*)"')
@@ -68,7 +68,7 @@ def i_want_to_remember_my_login_after_sign_in(step):
     LoginPage()
     world.page.fill_in_credentials("nick@fd.com", "pswd")
     world.page.remember_pass()
-    world.page.sign_in()
+    world.page.sign_in(u"Internal Contact")
 
 @step(u'I sign out from application')
 def i_sign_out_form_application(step):
@@ -89,5 +89,5 @@ def i_see_login_page_with_pre_populated_email(step):
 
 
 @step(u'I check "([^"]*)" legal entity detail')
-def i_check_legal_entity_detail(step, user):
-    world.page.click_on_entity()
+def i_check_legal_entity_detail(step, entity):
+    world.page.click_on_entity(entity)

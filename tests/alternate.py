@@ -8,6 +8,7 @@ from lib.environment import GetEnvironment
 
 class Singleton(type):
     _instances = {}
+
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
             cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
@@ -17,7 +18,7 @@ class InitWorld():
     __metaclass__ = Singleton
 
     def __init__(self):
-        self.users_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/source/users.json"
+        self.users_path = os.path.abspath("./source/users.json")
 
         current_path = os.path.dirname(__file__)
         self.project_path = os.path.abspath(os.path.join(current_path, os.pardir))
@@ -27,21 +28,19 @@ class InitWorld():
         self.config_logger()
         world.log = logging.getLogger(self.steps_log_config)
 
-
         world.init_driver = Driver
         world.env = GetEnvironment('staging')
 
         world.users = self.GetUsers()
 
-        world.log.info("USERS IN ALTERNATE: {0}".format(world.users))
-
+        world.log.info("CURRENT PATH {0}".format(os.getcwd()))
 
     def config_logger(self):
         self.steps_log_config = logging.basicConfig(filename='steps.log',
-                                       filemode='w',
-                                       level=logging.INFO)
-
-    def tear_down_world(self):
+                                                    filemode='w',
+                                                    level=logging.INFO)
+    @staticmethod
+    def tear_down_world():
         os.system("killall -9 phantomjs")
 
     def GetUsers(self):

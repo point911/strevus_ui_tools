@@ -1,3 +1,5 @@
+import os
+import sys
 import time
 from lettuce import world
 from selenium.common.exceptions import *
@@ -5,15 +7,23 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+#sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+#/Users/strevus/PycharmProjects/StrevusLoginTest/tests/pages/InternalContactPage.py
+
+#from . import InternalContactPage
+
+#InternalContactPage.EntitiesInternalPage()
+
+
 class LoginPage(object):
     def __init__(self):
-        self.env = world.env
+        # self.env = world.env
         self.driver = world.driver
         self.LoadPage()
         world.page = self
 
     def LoadPage(self):
-        self.driver.get(self.env["url"]+self.env['port'])
+        self.driver.get(world.env["url"]+world.env['port'])
 
     def set_username(self, user):
         el_username = self.driver.find_element_by_name("username")
@@ -26,7 +36,7 @@ class LoginPage(object):
         el_password.send_keys(password)
 
     def logout(self):
-        self.driver.get(self.env["url"]+self.env['port']+"logout")
+        self.driver.get(world.env["url"]+world.env['port']+"logout")
 
     # Public interface
     def check_remember_pass(self):
@@ -34,7 +44,7 @@ class LoginPage(object):
         remember_email_checkbox = self.driver.find_element_by_css_selector("#remember")
         if not remember_email_checkbox.is_selected():
             world.log.info("Check box remember pass is not selected")
-            raise AssertionError
+             #raise AssertionError
 
     def isLoginPage(self):
         try:
@@ -48,7 +58,7 @@ class LoginPage(object):
         self.set_username(user)
         self.set_password(pswd)
 
-    def sign_in(self):
+    def sign_in(self, user_type):
         el_login_button = self.driver.find_element_by_id("submitLogin")
         el_login_button.click()
 
@@ -60,16 +70,21 @@ class LoginPage(object):
             pass
         '''
         try:
-            el_popup = WebDriverWait(world.driver, 0).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+            el_popup = WebDriverWait(world.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,
                                                                                            ".dashboard-home")))
         except TimeoutException:
             world.log.info("NO DASHBOARD!!!!")
             raise AssertionError
         '''
 
-        pass
+        world.log.info("USER TYPE CLASS IS: {0}".format(user_type.__class__))
 
-        # DashboardPage()
+        if user_type == u"Internal Contact":
+            from . import InternalContactPage
+            InternalContactPage.EntitiesInternalPage()
+
+        else:
+            world.log.info("PAGE TYPE {0} IS NOT IMPLEMENTED!".format(user_type))
 
     def remember_pass(self):
         remember_email_checkbox = self.driver.find_element_by_css_selector("#remember")
