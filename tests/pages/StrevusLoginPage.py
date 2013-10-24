@@ -37,7 +37,7 @@ class LoginPage(object):
 
     def isLoginPage(self):
         try:
-            el_login_page = WebDriverWait(world.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+            el_login_page = WebDriverWait(world.driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR,
                                                                                                  "form#signin-form")))
         except TimeoutException:
             world.log.info("NO LOGINPAGE!!!!")
@@ -52,15 +52,27 @@ class LoginPage(object):
         el_login_button.click()
 
         try:
-            el_dash = WebDriverWait(world.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+            self.driver.find_element_by_css_selector(".user-modal-form")
+            el_remind_button = self.driver.find_element_by_css_selector(".btn-link")
+            el_remind_button.click()
+        except NoSuchElementException:
+            pass
+        '''
+        try:
+            el_popup = WebDriverWait(world.driver, 0).until(EC.presence_of_element_located((By.CSS_SELECTOR,
                                                                                            ".dashboard-home")))
         except TimeoutException:
             world.log.info("NO DASHBOARD!!!!")
-            #raise AssertionError
-        # TODO: Call init of the nextpage
+            raise AssertionError
+        '''
         # DashboardPage()
 
     def remember_pass(self):
         remember_email_checkbox = self.driver.find_element_by_css_selector("#remember")
         remember_email_checkbox.click()
+
+    def getLoginName(self):
+        el_username = self.driver.find_element_by_name("username")
+        return el_username.get_attribute("value")
+
 
