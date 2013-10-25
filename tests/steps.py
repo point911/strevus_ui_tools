@@ -88,10 +88,18 @@ def i_see_login_page_with_pre_populated_email(step):
 
 
 @step(u'I check "([^"]*)" legal entity detail')
-def i_check_legal_entity_detail(step, log_in_entity_type):
-    world.page.click_on_entity(log_in_entity_type)
+def i_check_legal_entity_detail(step, entity):
+    world.page.click_on_entity(entity)
 
 @step(u'I see myself "([^"]*)" assigned in contacts')
 def i_see_myself_assigned_in_contacts(step, log_in_entity_type):
     world.page.click_on_contacts()
     world.page.check_myself_as_assigned_contact(log_in_entity_type)
+
+@step(u'I see not my legal entity "([^"]*)"')
+def i_see_no_my_legal_entity(step, entity):
+    world.page.on_entity_click_not_my_account(entity)
+
+@step(u'I remove my relation with this entity in simple way')
+def i_remove_my_relation_with_this_entity_in_simple_way(step):
+    world.page.click_not_my_account()
