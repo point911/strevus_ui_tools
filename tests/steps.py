@@ -88,7 +88,10 @@ def i_see_login_page_with_pre_populated_email(step):
 
 
 @step(u'I check "([^"]*)" legal entity detail')
-def i_check_legal_entity_detail(step, entity):
-    world.page.click_on_entity(entity)
+def i_check_legal_entity_detail(step, log_in_entity_type):
+    world.page.click_on_entity(log_in_entity_type)
 
-#@step(u'')
+@step(u'I see myself "([^"]*)" assigned in contacts')
+def i_see_myself_assigned_in_contacts(step, log_in_entity_type):
+    world.page.click_on_contacts()
+    world.page.check_myself_as_assigned_contact(log_in_entity_type)

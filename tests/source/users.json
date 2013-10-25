@@ -1,7 +1,9 @@
 {
     "Internal Contact": {
         "email": "fred.wilson@ibank.com",
-        "pswd": "pswd"
+        "pswd": "pswd",
+        "fname": "Fred",
+        "sname": "Wilson"
     },
     "External Contact": {
         "email": "",
