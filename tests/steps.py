@@ -21,7 +21,7 @@ def setup_tearup_outline(feature, *args):
 @before.each_scenario
 def setup_tearup_features(scenario):
     world.log.info(scenario)
-    world.driver = world.init_driver("phantomjs")
+    world.driver = world.init_driver("firefox")
 
 @after.outline
 def setup_teardown_outline(feature, *args):
@@ -53,7 +53,7 @@ def then_i_should_see_landing_page(step, landing_page):
            world.log.info("No dashboard is presented.")
            raise AssertionError
     elif landing_page == "Internal Contact Entities":
-        dashboard = WebDriverWait(world.driver, 40).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+        dashboard = WebDriverWait(world.driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR,
                                                                                          ".entities-list")))
 
         #dashboard = world.driver.find_element_by_css_selector(".entities-list")
@@ -81,8 +81,7 @@ def i_see_login_page_with_pre_populated_email(step):
     world.page.isLoginPage()
     world.page.check_remember_pass()
     b = world.page.getLoginName()
-    #world.log.info("Login name is: {0}".format(b))
-    #world.log.info(type(b))
+
     if "nick@fd.com" not in b:
         world.log.info("Login name is not correct")
         raise AssertionError
@@ -91,3 +90,5 @@ def i_see_login_page_with_pre_populated_email(step):
 @step(u'I check "([^"]*)" legal entity detail')
 def i_check_legal_entity_detail(step, entity):
     world.page.click_on_entity(entity)
+
+#@step(u'')

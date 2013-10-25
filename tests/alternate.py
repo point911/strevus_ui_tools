@@ -33,7 +33,6 @@ class InitWorld():
 
         world.users = self.GetUsers()
 
-        world.log.info("CURRENT PATH {0}".format(os.getcwd()))
 
     def config_logger(self):
         self.steps_log_config = logging.basicConfig(filename='steps.log',

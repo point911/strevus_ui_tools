@@ -1,19 +1,9 @@
-import os
-import sys
 import time
 from lettuce import world
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-#sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-#/Users/strevus/PycharmProjects/StrevusLoginTest/tests/pages/InternalContactPage.py
-
-#from . import InternalContactPage
-
-#InternalContactPage.EntitiesInternalPage()
-
 
 class LoginPage(object):
     def __init__(self):
@@ -93,5 +83,3 @@ class LoginPage(object):
     def getLoginName(self):
         el_username = self.driver.find_element_by_name("username")
         return el_username.get_attribute("value")
-
-
