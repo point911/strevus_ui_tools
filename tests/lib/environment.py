@@ -1,5 +1,3 @@
-__author__ = 'point'
-
 import json
 
 environment_config_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/env/env.json"

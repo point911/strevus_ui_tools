@@ -1,20 +1,21 @@
 import time
-from lettuce import world
+
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+#from tests.pages import InternalContactPage
+
 
 class LoginPage(object):
-    def __init__(self):
-        # self.env = world.env
-        self.driver = world.driver
+    def __init__(self, context):
+        #self.driver = world.driver
         self.LoadPage()
-        world.page = self
+        context.page = self
 
     def LoadPage(self):
         self.driver.get(world.env["url"]+world.env['port'])
-
+'''
     def set_username(self, user):
         el_username = self.driver.find_element_by_name("username")
         el_username.clear()
@@ -58,19 +59,11 @@ class LoginPage(object):
             el_remind_button.click()
         except NoSuchElementException:
             pass
-        '''
-        try:
-            el_popup = WebDriverWait(world.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                                                                                           ".dashboard-home")))
-        except TimeoutException:
-            world.log.info("NO DASHBOARD!!!!")
-            raise AssertionError
-        '''
+
 
         world.log.info("USER TYPE CLASS IS: {0}".format(user_type.__class__))
 
         if user_type == u"Internal Contact":
-            from . import InternalContactPage
             InternalContactPage.EntitiesInternalPage()
 
         else:
@@ -83,3 +76,5 @@ class LoginPage(object):
     def getLoginName(self):
         el_username = self.driver.find_element_by_name("username")
         return el_username.get_attribute("value")
+
+'''

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # import logging
-
+'''
 import lettuce
 import time
 from lettuce import *
@@ -103,3 +103,6 @@ def i_see_no_my_legal_entity(step, entity):
 @step(u'I remove my relation with this entity in simple way')
 def i_remove_my_relation_with_this_entity_in_simple_way(step):
     world.page.click_not_my_account()
+
+
+'''

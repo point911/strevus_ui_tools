@@ -1,10 +1,6 @@
 import time
 from lettuce import world
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.common.exceptions import *
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from tests.pages import StrevusLoginPage
 
 
 class EntitiesInternalPage(object):
@@ -13,7 +9,6 @@ class EntitiesInternalPage(object):
 
     def logout(self):
         world.driver.get(world.env["url"]+world.env['port']+"logout")
-        from . import StrevusLoginPage
         world.page = StrevusLoginPage.LoginPage()
 
     def click_on_entity(self, name):

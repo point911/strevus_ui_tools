@@ -1,1 +1,1 @@
-__all__ = ["driver", "environment"]
+__all__ = ["driver", "environment", "logger"]
