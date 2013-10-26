@@ -34,8 +34,8 @@ class LoginPage(object):
         except TimeoutException:
             self.context.log.info("NO LOGINPAGE!")
 
-
     '''
+    Do we really need loguot from login page?
     def logout(self):
         self.driver.get(world.env["url"]+world.env['port']+"logout")
     '''

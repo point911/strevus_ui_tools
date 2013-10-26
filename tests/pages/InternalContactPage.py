@@ -24,13 +24,10 @@ class EntitiesInternalPage(object):
             self.context.log.info("Internal contact entities page is NOT presented.")
             raise AssertionError
 
-
-
-
-"""
+#=====
     def click_on_entity(self, name):
         if name == "any":
-            entity_fields = world.driver.find_elements_by_css_selector(".list-item")
+            entity_fields = self.context.driver.find_elements_by_css_selector(".list-item")
             sub = entity_fields[0].find_elements_by_css_selector("td a")
             entity_name = sub[1].text
 
@@ -40,15 +37,15 @@ class EntitiesInternalPage(object):
             self.check_le_name(entity_name)
 
     def check_le_name(self, entity_name):
-        el_real_entity = world.driver.find_element_by_css_selector(".js-outreach-head h3")
-        world.log.info(u"REAL NAME: {0}".format(el_real_entity.text))
+        el_real_entity = self.context.driver.find_element_by_css_selector(".js-outreach-head h3")
+        self.context.log.info(u"REAL NAME: {0}".format(el_real_entity.text))
 
         if entity_name != el_real_entity.text:
-            world.log.info("LE Name is NOT correct")
+            self.context.log.info("LE Name is NOT correct")
             raise AssertionError
 
     def click_on_contacts(self):
-        els_left_menu = world.driver.find_elements_by_css_selector(".js-tab-item")
+        els_left_menu = self.context.driver.find_elements_by_css_selector(".js-tab-item")
 
         for el_menu in els_left_menu:
             if el_menu.get_attribute("data-tab-type") == u"contacts":
@@ -56,10 +53,10 @@ class EntitiesInternalPage(object):
                 time.sleep(1)
 
     def check_myself_as_assigned_contact(self, login_user_type):
-        world.log.info(world.users[login_user_type])
+        self.context.log.info(self.context.users[login_user_type])
 
-        full_name = world.users[login_user_type][u"fname"] + u" " + world.users[login_user_type][u"sname"]
-        world.log.info("FULL NAME IS: {0}".format(full_name))
+        full_name = self.context.users[login_user_type][u"fname"] + u" " + self.context.users[login_user_type][u"sname"]
+        self.context.log.info("FULL NAME IS: {0}".format(full_name))
 
         assigned_contacts = self.get_assigned_internal_contacts()
 
@@ -70,12 +67,12 @@ class EntitiesInternalPage(object):
                 f_flag = True
 
         if not f_flag:
-            world.log.info("CONTACT NOT FOUND")
+            self.context.log.info("CONTACT NOT FOUND")
             raise AssertionError
 
     def get_assigned_internal_contacts(self):
         full_names = []
-        contact_cards = world.driver.find_elements_by_css_selector(".contact-card h4")
+        contact_cards = self.context.driver.find_elements_by_css_selector(".contact-card h4")
         for card in contact_cards:
             full_names.append(card.text)
 
@@ -83,7 +80,7 @@ class EntitiesInternalPage(object):
 
     def on_entity_click_not_my_account(self, entity):
         if entity == "name":
-            entity_fields = world.driver.find_elements_by_css_selector(".list-item")
+            entity_fields = self.context.driver.find_elements_by_css_selector(".list-item")
             sub = entity_fields[0].find_elements_by_css_selector("td a")
             self.entity = entity_fields[0]
             self.entity_name = sub[1].text
@@ -113,19 +110,18 @@ class EntitiesInternalPage(object):
         self.check_entity_existance()
 
     def click_i_dont_know(self):
-        delete_link = world.driver.find_element_by_css_selector(".js-dont-know-link")
+        delete_link = self.context.driver.find_element_by_css_selector(".js-dont-know-link")
         delete_link.click()
         time.sleep(1)
 
     def check_entity_existance(self):
         all_names = []
 
-        entity_fields = world.driver.find_elements_by_css_selector(".list-item")
+        entity_fields = self.context.driver.find_elements_by_css_selector(".list-item")
         for entity in entity_fields:
             sub = entity.find_elements_by_css_selector("td a")
             all_names.append(sub[1].text)
 
         if self.entity_name in all_names:
-            world.log.info("ENTITY STILL PRESENT")
+            self.context.log.info("ENTITY STILL PRESENT")
             # raise AssertionError
-"""
