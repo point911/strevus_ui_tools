@@ -4,7 +4,7 @@ import json
 import logging
 from lettuce import *
 from lib.driver import Driver
-from lib.environment import GetEnvironment
+from lib.tests_environment import GetEnvironment
 
 class Singleton(type):
     _instances = {}

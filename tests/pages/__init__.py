@@ -1,1 +1,1 @@
-# __all__ = ["StrevusLoginPage", "InternalContactPage"]
+__all__ = ["StrevusLoginPage", "InternalContactPage"]

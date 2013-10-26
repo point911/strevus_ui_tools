@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # import logging
-'''
+
+
 import lettuce
 import time
 from lettuce import *
@@ -10,7 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
+""""
 # Iinit Global test environment
 sp = InitWorld()
 
@@ -103,6 +104,5 @@ def i_see_no_my_legal_entity(step, entity):
 @step(u'I remove my relation with this entity in simple way')
 def i_remove_my_relation_with_this_entity_in_simple_way(step):
     world.page.click_not_my_account()
+"""
 
-
-'''

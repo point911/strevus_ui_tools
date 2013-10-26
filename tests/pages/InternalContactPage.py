@@ -1,16 +1,16 @@
 import time
-from lettuce import world
-from tests.pages import StrevusLoginPage
-
 
 class EntitiesInternalPage(object):
-    def __init__(self):
-        world.page = self
+    def __init__(self, context):
+        self.context = context
+        context.page = self
 
     def logout(self):
-        world.driver.get(world.env["url"]+world.env['port']+"logout")
-        world.page = StrevusLoginPage.LoginPage()
+        self.context.driver.get(self.context.env["url"]+self.context.env['port']+"logout")
+        from .StrevusLoginPage import LoginPage
+        self.context.page = LoginPage(self.context)
 
+"""
     def click_on_entity(self, name):
         if name == "any":
             entity_fields = world.driver.find_elements_by_css_selector(".list-item")
@@ -111,3 +111,4 @@ class EntitiesInternalPage(object):
         if self.entity_name in all_names:
             world.log.info("ENTITY STILL PRESENT")
             # raise AssertionError
+"""

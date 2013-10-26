@@ -9,5 +9,3 @@ class BehaveLogger(object):
 
     def get_behave_logger(self):
         return logging.getLogger(self.steps_log_config)
-
-
