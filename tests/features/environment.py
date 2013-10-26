@@ -26,6 +26,8 @@ def after_step(context, step):
 
 
 def after_scenario(context, scenario):
+    context.log.info("="*20)
+    context.driver.delete_all_cookies()
     context.driver.close()
 
 

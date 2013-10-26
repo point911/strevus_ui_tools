@@ -1,5 +1,10 @@
 import time
 
+from selenium.common.exceptions import *
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 class EntitiesInternalPage(object):
     def __init__(self, context):
         self.context = context
@@ -9,6 +14,18 @@ class EntitiesInternalPage(object):
         self.context.driver.get(self.context.env["url"]+self.context.env['port']+"logout")
         from .StrevusLoginPage import LoginPage
         self.context.page = LoginPage(self.context)
+
+    def check_entities_page(self):
+        try:
+            entities = WebDriverWait(self.context.driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                                                                    ".entities-list")))
+            #dashboard = world.driver.find_element_by_css_selector(".entities-list")
+        except TimeoutException:
+            self.context.log.info("Internal contact entities page is NOT presented.")
+            raise AssertionError
+
+
+
 
 """
     def click_on_entity(self, name):

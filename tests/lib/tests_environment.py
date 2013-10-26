@@ -1,7 +1,10 @@
 import json
+import os
 
-environment_config_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/env/env.json"
-users_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/source/users.json"
+environment_config_path = os.path.abspath("./env/env.json")
+users_path = os.path.abspath("./source/users.json")
+
+print(os.getcwd())
 
 
 class LoadConfig(object):

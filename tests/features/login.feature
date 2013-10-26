@@ -13,4 +13,9 @@ Feature: Login
         | Tax Person                   | Dashboard                  |
         | Internal Contact             | Internal Contact Entities  |
 
+    Scenario: Remember email on the login form
+        Given I want to remember my login nick@fd.com after sign in
+        When I sign out from application
+        Then I see login page with pre-populated email nick@fd.com
+
 
