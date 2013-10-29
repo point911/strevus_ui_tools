@@ -4,13 +4,14 @@ from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from tests.pages.BasePage import BasePage
 from tests.pages.InternalContactPage import EntitiesInternalPage
 from tests.pages.DashboardPage import DashboardPage
 
 
-class LoginPage(object):
+class LoginPage(BasePage):
     def __init__(self, context):
-        self.context = context
+        super(LoginPage, self).__init__(context)
         self.LoadPage()
         self.context.page = self
 
@@ -34,18 +35,16 @@ class LoginPage(object):
         except TimeoutException:
             self.context.log.info("NO LOGINPAGE!")
 
-    '''
-    Do we really need loguot from login page?
-    def logout(self):
-        self.driver.get(world.env["url"]+world.env['port']+"logout")
-    '''
     # Public interface
     def check_remember_pass(self):
-
-        remember_email_checkbox = self.context.driver.find_element_by_css_selector("#remember")
-        if not remember_email_checkbox.is_selected():
-            self.context.log.info("Check box remember pass is not selected")
-             #raise AssertionError
+        try:
+            remember_email_checkbox = self.context.driver.find_element_by_css_selector("#remember")
+            if not remember_email_checkbox.is_selected():
+                self.context.log.info("Check box remember pass is not selected")
+                raise AssertionError
+        except NoSuchElementException:
+            self.context.log.info("Check box remember pass is not founded")
+            raise AssertionError
 
     def fill_in_credentials(self, user, pswd):
         self.set_username(user)

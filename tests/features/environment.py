@@ -4,7 +4,7 @@ from tests.lib.tests_environment import *
 
 
 log = BehaveLogger().get_behave_logger()
-env = GetEnvironment("staging")
+env = GetEnvironment("qa")
 drv = Driver
 users = GetUsers()
 
@@ -29,6 +29,7 @@ def after_scenario(context, scenario):
     context.log.info("="*20)
     context.driver.delete_all_cookies()
     context.driver.close()
+    del context.driver
 
 
 def after_all(context):

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time
 
 from selenium.common.exceptions import *
@@ -5,21 +7,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-class EntitiesInternalPage(object):
-    def __init__(self, context):
-        self.context = context
-        context.page = self
+from tests.pages.BasePage import BasePage
 
-    def logout(self):
-        self.context.driver.get(self.context.env["url"]+self.context.env['port']+"logout")
-        from .StrevusLoginPage import LoginPage
-        self.context.page = LoginPage(self.context)
+
+class EntitiesInternalPage(BasePage):
+    def __init__(self, context):
+        super(EntitiesInternalPage, self).__init__(context)
+        context.page = self
 
     def check_entities_page(self):
         try:
-            entities = WebDriverWait(self.context.driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+            entities = WebDriverWait(self.context.driver, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR,
                                                                                                     ".entities-list")))
-            #dashboard = world.driver.find_element_by_css_selector(".entities-list")
         except TimeoutException:
             self.context.log.info("Internal contact entities page is NOT presented.")
             raise AssertionError
@@ -55,11 +54,11 @@ class EntitiesInternalPage(object):
     def check_myself_as_assigned_contact(self, login_user_type):
         self.context.log.info(self.context.users[login_user_type])
 
-        full_name = self.context.users[login_user_type][u"fname"] + u" " + self.context.users[login_user_type][u"sname"]
+        full_name = self.context.users[login_user_type]["fname"] + " " + self.context.users[login_user_type]["sname"]
         self.context.log.info("FULL NAME IS: {0}".format(full_name))
 
         assigned_contacts = self.get_assigned_internal_contacts()
-
+        self.context.log.info("ASSIGNED CONTACTS ARE: {0}".format(assigned_contacts))
         f_flag = False
 
         for contact in assigned_contacts:
@@ -72,9 +71,15 @@ class EntitiesInternalPage(object):
 
     def get_assigned_internal_contacts(self):
         full_names = []
-        contact_cards = self.context.driver.find_elements_by_css_selector(".contact-card h4")
+        contact_cards = self.context.driver.find_elements_by_css_selector(".contact-card")
+        self.context.log.info("CONTACT CARDS ARE: {0}".format(contact_cards))
         for card in contact_cards:
-            full_names.append(card.text)
+            try:
+                sub = card.find_element_by_css_selector(".info-name")
+                full_names.append(sub.text)
+                self.context.log.info("SUB TEXT IS {0}".format(sub.text))
+            except:
+                pass
 
         return full_names
 
