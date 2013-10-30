@@ -28,7 +28,7 @@ def before_all(context):
 
 
 def before_scenario(context, scenario):
-    context.driver = drv("firefox")
+    context.driver = drv("phantomjs")
 
 
 def after_step(context, step):
