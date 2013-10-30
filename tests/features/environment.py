@@ -1,12 +1,22 @@
-from tests.lib.logger import *
-from tests.lib.driver import Driver
-from tests.lib.tests_environment import *
+import imp
+
+DRV = imp.load_source('driver', './lib/driver.py')
+LOG = imp.load_source('logger', './lib/logger.py')
+ENV = imp.load_source('env', './lib/tests_environment.py')
 
 
-log = BehaveLogger().get_behave_logger()
-env = GetEnvironment("qa")
-drv = Driver
-users = GetUsers()
+#from tests.lib.logger import *
+#from tests.lib.driver import Driver
+#from tests.lib.tests_environment import *
+
+
+log = LOG.BehaveLogger().get_behave_logger()
+env = ENV.GetEnvironment("qa")
+drv = DRV.Driver
+users = ENV.GetUsers()
+
+#drv = Driver
+#users = GetUsers()
 
 # Do not call project libraries from hook functions!
 

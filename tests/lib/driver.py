@@ -3,7 +3,6 @@ __author__ = 'point'
 driver_config_path = "/Users/strevus/PycharmProjects/StrevusLoginTest/tests/config/driver.json"
 
 import json
-from lettuce import world
 from selenium import webdriver
 
 
@@ -14,7 +13,7 @@ class LoadWebdriver(object):
         elif name == "firefox":
             return webdriver.Firefox()
         else:
-            world.log.info("NO SUCH DRIVER")
+            print("NO SUCH DRIVER")
             exit(1)
 
 

@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import imp
+
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.pages.BasePage import BasePage
-from tests.pages.InternalContactPage import EntitiesInternalPage
-from tests.pages.DashboardPage import DashboardPage
 
 
-class LoginPage(BasePage):
+#from tests.pages.BasePage import BasePage
+#from tests.pages.InternalContactPage import EntitiesInternalPage
+#from tests.pages.DashboardPage import DashboardPage
+
+BasePage = imp.load_source('BasePage', './pages/BasePage.py')
+InternalContactPage = imp.load_source('InternalContactPage', './pages/InternalContactPage.py')
+DashboardPage = imp.load_source('DashboardPage', './pages/DashboardPage.py')
+
+
+class LoginPage(BasePage.BasePage):
     def __init__(self, context):
         super(LoginPage, self).__init__(context)
         self.LoadPage()
@@ -65,9 +73,9 @@ class LoginPage(BasePage):
             pass
 
         if user_type == "Internal Contact":
-            EntitiesInternalPage(self.context)
+            InternalContactPage.EntitiesInternalPage(self.context)
         elif user_type == "CustomerOutreachTeamMember" or user_type == "Tax Person":
-            DashboardPage(self.context)
+            DashboardPage.DashboardPage(self.context)
         else:
             self.context.log.info("PAGE TYPE {0} IS NOT IMPLEMENTED!".format(user_type))
 

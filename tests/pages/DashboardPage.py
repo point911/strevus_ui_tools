@@ -1,12 +1,13 @@
-import time
+import imp
 
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+BasePage = imp.load_source('BasePage', './pages/BasePage.py')
 
-class DashboardPage(object):
+class DashboardPage(BasePage.BasePage):
     def __init__(self, context):
         self.context = context
         context.page = self

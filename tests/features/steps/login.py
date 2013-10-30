@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import imp
 from behave import *
-from tests.pages.StrevusLoginPage import LoginPage
+#from tests.pages.StrevusLoginPage import LoginPage
+
+StrevusLoginPage = imp.load_source('driver', './pages/StrevusLoginPage.py')
 
 
 @step('I am signed in as "{user_type}"')
 def i_am_signed_in_as(context, user_type):
     context.log.info("Step sign in as {0} begins...".format(user_type))
-    LoginPage(context)
+    StrevusLoginPage.LoginPage(context)
     context.page.check_login_page()
     context.page.fill_in_credentials(context.users[user_type]["email"], context.users[user_type]["pswd"])
     context.page.sign_in(user_type)
@@ -28,7 +31,7 @@ def then_i_should_see_landing_page(context, landing_page):
 @step('I want to remember my login nick@fd.com after sign in')
 def i_want_to_remember_my_login_after_sign_in(context):
     context.log.info("Step I want to remember my login nick@fd.com after sign in begins...")
-    LoginPage(context)
+    StrevusLoginPage.LoginPage(context)
     context.page.fill_in_credentials("nick@fd.com", "pswd")
     context.page.remember_pass()
     context.page.sign_in("Internal Contact")
