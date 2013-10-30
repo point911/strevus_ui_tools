@@ -1,6 +1,6 @@
 __author__ = 'point'
 
-driver_config_path = "./tests/config/driver.json"
+driver_config_path = "./config/driver.json"
 
 import json
 from selenium import webdriver
