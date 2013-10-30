@@ -1,5 +1,3 @@
-__author__ = 'point'
-
 driver_config_path = "./config/driver.json"
 
 import json

@@ -16,7 +16,7 @@ class DashboardPage(BasePage.BasePage):
         try:
             el_dash = WebDriverWait(self.context.driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR,
                                                                                                   ".dashboard-home")))
-            # if not el_dash.is_displayed():
+
         except TimeoutException:
             self.context.log.info("No dashboard is presented.")
             raise AssertionError

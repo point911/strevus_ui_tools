@@ -15,8 +15,6 @@ env = ENV.GetEnvironment("qa")
 drv = DRV.Driver
 users = ENV.GetUsers()
 
-#drv = Driver
-#users = GetUsers()
 
 # Do not call project libraries from hook functions!
 
