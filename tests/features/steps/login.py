@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from behave import *
-from tests.pages.StrevusLoginPage import LoginPage
+# from tests.pages.StrevusLoginPage import LoginPage
+
+from ...pages.StrevusLoginPage import LoginPage
 
 
 @step('I am signed in as "{user_type}"')

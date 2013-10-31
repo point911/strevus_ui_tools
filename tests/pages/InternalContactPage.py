@@ -7,7 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from tests.pages.BasePage import BasePage
+# from tests.pages.BasePage import BasePage
+from .BasePage import BasePage
 
 
 class EntitiesInternalPage(BasePage):

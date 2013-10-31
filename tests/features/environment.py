@@ -1,7 +1,10 @@
-from tests.lib.logger import *
-from tests.lib.driver import Driver
-from tests.lib.tests_environment import *
+#from tests.lib.logger import *
+#from tests.lib.driver import Driver
+#from tests.lib.tests_environment import *
 
+from ..lib.logger import *
+from ..lib.driver import Driver
+from ..lib.tests_environment import *
 
 log = BehaveLogger().get_behave_logger()
 env = GetEnvironment("qa")
