@@ -1,24 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# import imp
-
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
-#from tests.pages.BasePage import BasePage
-#from tests.pages.InternalContactPage import EntitiesInternalPage
-#from tests.pages.DashboardPage import DashboardPage
-
-# BasePage = imp.load_source('BasePage', './pages/BasePage.py')
-# InternalContactPage = imp.load_source('InternalContactPage', './pages/InternalContactPage.py')
-# DashboardPage = imp.load_source('DashboardPage', './pages/DashboardPage.py')
-
 from .BasePage import BasePage
 from .InternalContactPage import EntitiesInternalPage
-from DashboardPage import DashboardPage
+from .DashboardPage import DashboardPage
 
 
 class LoginPage(BasePage):

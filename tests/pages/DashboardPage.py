@@ -1,13 +1,10 @@
-# import imp
-
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# BasePage = imp.load_source('BasePage', './pages/BasePage.py')
-
 from BasePage import BasePage
+
 
 class DashboardPage(BasePage):
     def __init__(self, context):
