@@ -2,7 +2,7 @@
 
 import time
 
-import imp
+# import imp
 
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
@@ -10,9 +10,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 #from tests.pages.BasePage import BasePage
-BasePage = imp.load_source('BasePage', './pages/BasePage.py')
+#BasePage = imp.load_source('BasePage', './pages/BasePage.py')
 
-class EntitiesInternalPage(BasePage.BasePage):
+from .BasePage import BasePage
+
+class EntitiesInternalPage(BasePage):
     def __init__(self, context):
         super(EntitiesInternalPage, self).__init__(context)
         context.page = self
